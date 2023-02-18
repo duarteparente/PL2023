@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 
 model = {
     "idade": [],
@@ -49,7 +50,6 @@ def dist_sex():
     distribution['M'] = (f"{((counterMD/counterM)*100):.1f} %", counterMD)
     distribution['F'] = (f"{((counterFD/counterF)*100):.1f} %", counterFD)
     return distribution
-    
 
 def dist_idade():
     distribution = {}
@@ -92,14 +92,29 @@ def dist_col():
 def dist_to_table(dist):
     print("    +-----------+--------+-----+")
     for i in dist:
-        print ("    | {:<9} | {:<6} | {:<3} |".format(i,dist[i][0],dist[i][1]))
-        
+        print ("    | {:^9} | {:<6} | {:<3} |".format(i,dist[i][0],dist[i][1]))
     print("    +-----------+--------+-----+")
     
-        
+
+def dist_to_plot(dist):
+    names = list(dist.keys())
+    values = list(dist.values())
+    freq = [int(i[1]) for i in values]
+    plt.bar(range(len(dist)), freq, tick_label=names)
+    plt.show()
+
    
 if __name__ == "__main__":
     totalDoentes = read_csv()
-    dist_to_table(dist_sex())
-    dist_to_table(dist_idade())
-    dist_to_table(dist_col())
+    print("\n > Distribuição da doença por sexo\n")
+    sex = dist_sex()
+    dist_to_table(sex)
+    print("\n > Distribuição da doença por escalões etários\n")
+    idade = dist_idade()
+    dist_to_table(idade)
+    print("\n > Distribuição da doença por níveis de colesterol\n")
+    col = dist_col()
+    dist_to_table(col)
+    #dist_to_plot(sex)
+    #dist_to_plot(idade)
+    #dist_to_plot(col)
