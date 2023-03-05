@@ -79,12 +79,11 @@ def show_nomes(res):
                 print('    |{:^10}| {:^10} - {:^5}|{:^10} - {:^5}|'.format(s,p_list[i],sorted_p[p_list[i]],a_list[i],sorted_a[a_list[i]]))
             else:
                 print('    |          | {:^10} - {:^5}|{:^10} - {:^5}|'.format(p_list[i],sorted_p[p_list[i]],a_list[i],sorted_a[a_list[i]]))
-        print("    +-------------------------------------------------+")  
+        print("    +-------------------------------------------------+\n")  
         
         
 def relacoes(data):
     res = {}
-    # Manuel Jose Sousa Machado,Irmao. Proc.8239.
     exp = r'[aA-zZ\s]*,([aA-zZ\s]*)\.[\s]*Proc\.[\d]+\.'
     regex = re.compile(exp)
     for d in data:
@@ -104,7 +103,7 @@ def show_relacoes(res):
     print("    +------------------------------------------+")
     for i in res:
         print('    |{:^27}|{:^14}|'.format(i,res[i]))
-    print("    +------------------------------------------+")      
+    print("    +------------------------------------------+\n")      
     
 
 def formato(data):
