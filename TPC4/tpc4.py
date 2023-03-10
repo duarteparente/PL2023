@@ -23,10 +23,7 @@ def read_csv(filepath):
                 if r3.group(4) != '':
                     func = r3.group(4)
                     max_value = int(r3.group(3))
-                l = []
-                for index in range(max_value):
-                    if i[j+index] != '':
-                        l.append(int(i[j+index]))
+                l = list(map(int,list(filter(None, i[j:(j+max_value)]))))
                 n = sum(l)
                 if func == "media":
                     n = statistics.mean(l)
@@ -37,10 +34,8 @@ def read_csv(filepath):
                 max_value = int(r1.group(1))
                 if r1.group(2) != '':
                     max_value = int(r1.group(2))
-                for index in range(max_value):
-                    if i[j+index] != '':
-                        l.append(int(i[j+index]))
-                d[temp] = l 
+                l = list(map(int,list(filter(None, i[j:(j+max_value)]))))
+                d[temp] = l
             else:        
                 d[header[j]] = i[j]
         data.append(d)
@@ -69,13 +64,10 @@ def to_json(filepath,data):
             gen += '    },\n'
             
     gen += ']'
-        
     file.write(gen)
     file.close()
+    
 
-
-to_json("alunos.json",read_csv("alunos.csv"))
-to_json("alunos2.json", read_csv("alunos2.csv"))
-to_json("alunos3.json", read_csv("alunos3.csv"))
-to_json("alunos4.json", read_csv("alunos4.csv"))
-to_json("alunos5.json", read_csv("alunos5.csv"))
+for i in ["alunos.csv", "alunos2.csv", "alunos3.csv", "alunos4.csv", "alunos5.csv"]:
+    r = re.search(r'(\w+\.)(\w+)', i).group(1) + 'json'
+    to_json(r,read_csv(i))
